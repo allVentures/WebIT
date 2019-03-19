@@ -1,0 +1,63 @@
+{% include  "header.html" %}
+{% if msg %}
+    <div class="msgInfo">{{ msg }}</div>
+{% else %}
+    <h3 class="h3 h3Colors">Client: {{ client.client_name }}</h3>
+    <div>
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col" class="centerTableCol">Label</th>
+                <th scope="col" class="centerTableCol">Data</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Name</td>
+                <td>{{ client.client_name }}</td>
+            </tr>
+            <tr>
+                <td>email</td>
+                <td>{{ client.email }}</td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td>{{ client.phone }}</td>
+            </tr>
+            <tr>
+                <td>Contact Name</td>
+                <td>{{ client.contact_name }}</td>
+            </tr>
+            <tr>
+                <td>Street</td>
+                <td>{{ client.street }}</td>
+            </tr>
+            <tr>
+                <td>House Number</td>
+                <td>{{ client.house_number }}</td>
+            </tr>
+            <tr>
+                <td>Suburb</td>
+                <td>{{ client.suburb }}</td>
+            </tr>
+            <tr>
+                <td>Post Code</td>
+                <td>{{ client.post_code }}</td>
+            </tr>
+            <tr>
+                <td>State</td>
+                <td>{{ client.get_state_display}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+    <a href="/modify/{{ client.id }}">
+        <button type="submit" class="btn btn-warning">Modify</button>
+    </a>
+    <a href="/delete/{{ client.id }}">
+        <button class="btn btn-danger">Delete</button>
+    </a>
+{% endif %}
+{% include "footer.html" %}

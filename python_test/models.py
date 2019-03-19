@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.core.validators import MaxValueValidator
 
 AU_STATES = (
     (1, "New South Wales"),
@@ -36,5 +37,5 @@ class Client(models.Model):
     # house number as CharField as numbers may contain letters and "/" etc
     house_number = models.CharField(max_length=10, null=True, blank=True)
     suburb = models.CharField(max_length=128, null=False, blank=False)
-    post_code = models.SmallIntegerField(blank=True, null=True)
+    post_code = models.PositiveSmallIntegerField(blank=True, null=True, validators=[MaxValueValidator(9999)])
     state = models.SmallIntegerField(choices=AU_STATES, null=True, blank=True)

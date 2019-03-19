@@ -14,9 +14,10 @@ class MainPage(View):
 
 
 class ShowClientDetails(View):
-    def get(self, request):
-        ctx = {}
-        return render(request, "main_page.html", ctx)
+    def get(self, request, id):
+        client = Client.objects.get(pk=id)
+        ctx = {"client" : client}
+        return render(request, "show_user_details.html", ctx)
 
 
 class AddClient(View):
@@ -116,9 +117,11 @@ class ModifyClient(View):
 
 
 class DeleteClient(View):
-    def get(self, request):
-        ctx = {}
-        return render(request, "main_page.html", ctx)
+    def get(self, request, id):
+        client_to_delete = Client.objects.get(pk=id)
+        client_to_delete.delete()
+        ctx = {"msg": " Client Deleted!"}
+        return render(request, "standard_msg_page.html", ctx)
 
 
 class SearchClient(View):

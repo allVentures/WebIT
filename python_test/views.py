@@ -1,7 +1,8 @@
+from django.db.models import Q
 from django.db import IntegrityError
 from django.shortcuts import render
 from django.views import View
-from python_test.forms import AddClientForm
+from python_test.forms import AddClientForm, SearchClientForm
 
 from python_test.models import Client
 
@@ -16,7 +17,7 @@ class MainPage(View):
 class ShowClientDetails(View):
     def get(self, request, id):
         client = Client.objects.get(pk=id)
-        ctx = {"client" : client}
+        ctx = {"client": client}
         return render(request, "show_user_details.html", ctx)
 
 
@@ -126,5 +127,45 @@ class DeleteClient(View):
 
 class SearchClient(View):
     def get(self, request):
-        ctx = {}
-        return render(request, "main_page.html", ctx)
+        form = SearchClientForm()
+        ctx = {"form": form}
+        return render(request, "search_client.html", ctx)
+
+    def post(self, request):
+        form = SearchClientForm(request.POST)
+        if form.is_valid():
+            client_name = form.cleaned_data["client_name"]
+            email = form.cleaned_data["email"]
+            phone = form.cleaned_data["phone"]
+            suburb = form.cleaned_data["suburb"]
+            sorting = int(form.cleaned_data["sorting"])
+            order = int(form.cleaned_data["order"])
+
+            if sorting == 1 and order == 1:
+                sort_order = 'client_name'
+            elif sorting == 1 and order == 2:
+                sort_order = '-client_name'
+            elif sorting == 2 and order == 1:
+                sort_order = 'suburb'
+            elif sorting == 2 and order == 2:
+                sort_order = '-suburb'
+            elif sorting == 3 and order == 1:
+                sort_order = 'email'
+            elif sorting == 3 and order == 2:
+                sort_order = '-email'
+            elif sorting == 4 and order == 1:
+                sort_order = 'phone'
+            elif sorting == 4 and order == 2:
+                sort_order = '-phone'
+            else:
+                sort_order = 'id'
+
+            results = Client.objects.filter(
+                Q(client_name__contains=client_name) & Q(email__contains=email) &
+                Q(phone__contains=phone) & Q(suburb__contains=suburb)).order_by(sort_order)
+
+            ctx = {"form": form, "reults": results}
+            return render(request, "search_client.html", ctx)
+        else:
+            ctx = {"form": form}
+            return render(request, "search_client.html", ctx)

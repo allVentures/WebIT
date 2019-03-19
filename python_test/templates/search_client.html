@@ -1,0 +1,79 @@
+{% include  "header.html" %}
+
+{% if msg %}
+    <div class="msgInfo">{{ msg }}</div>
+{% else %}
+    <h3 class="h3 h3Colors">Search for Client:</h3>
+    <div>
+    <form action="/search/" method="post" novalidate>
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.client_name.id_for_label }}">Client Name</label>
+            {{ form.client_name }}
+            {{ form.client_name.errors }}
+            <label for="{{ form.suburb.id_for_label }}">Suburb</label>
+            {{ form.suburb }}
+            {{ form.suburb.errors }}
+            <label for="{{ form.email.id_for_label }}">Client Email</label>
+            {{ form.email }}
+            {{ form.email.errors }}
+            <label for="{{ form.phone.id_for_label }}">Phone</label>
+            {{ form.phone }}
+            {{ form.phone.errors }}
+            <div class="halfcol6">
+                <label for="{{ form.sorting.id_for_label }}">Sorting</label>
+                {{ form.sorting }}
+                <br></div>
+            <div class="halfcol6">
+                <label for="{{ form.order.id_for_label }}">Order</label>
+                {{ form.order }}
+                {{ form.order.errors }}
+            </div>
+            <br><br>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">SEARCH</button>
+    </form>
+
+    {% if reults %}
+        <hr>
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col" class="centerTableCol col5">ID</th>
+                <th scope="col" class="centerTableCol">Client Name</th>
+                <th scope="col" class="centerTableCol">Email</th>
+                <th scope="col" class="centerTableCol">Phone</th>
+                <th scope="col" class="centerTableCol">Suburb</th>
+                <th scope="col" class="centerTableCol">State</th>
+                <th scope="col" class="centerTableCol col10">(modify)</th>
+                <th scope="col" class="centerTableCol col10">(delete)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for cl in reults %}
+                <tr>
+                    <td class="centerTableCol">{{ cl.id }}</td>
+                    <td class="centerTableCol"><a href="/details/{{ cl.id }}">{{ cl.client_name }}</a></td>
+                    <td class="centerTableCol">{{ cl.email }}</td>
+                    <td class="centerTableCol">{{ cl.phone }}</td>
+                    <td class="centerTableCol">{{ cl.suburb }}</td>
+                    <td class="centerTableCol">{{ cl.get_state_display }}</td>
+                    <td class="centerTableCol">
+                        <a href="/modify/{{ cl.id }}">
+                            <button class="btn btn-warning">Modify</button>
+                    </td>
+                    <td class="centerTableCol">
+                        <a href="/delete/{{ cl.id }}">
+                            <button class="btn btn-danger">Delete!</button>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% endif %}
+
+{% endif %}
+{% include "footer.html" %}

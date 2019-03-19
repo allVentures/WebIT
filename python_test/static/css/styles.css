@@ -91,6 +91,13 @@ table {
     width: 5%;
 }
 
+.halfcol6 {
+    padding: 0;
+    margin: 10px 0 0 0;
+    width: 49%;
+    float: left;
+}
+
 .userDetailsDiv {
     display: inline-block;
     vertical-align: top;

@@ -3,66 +3,43 @@
 
 {% else %}
 
-    <h3 class="h3 h3Colors">All Users:</h3>
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col" class="centerTableCol">Username</th>
-            <th scope="col" class="centerTableCol">Birthday</th>
-            <th scope="col" class="centerTableCol">Age</th>
-            <th scope="col" class="centerTableCol">Eligable</th>
-            <th scope="col" class="centerTableCol">Random Number</th>
-            <th scope="col" class="centerTableCol">BizzFuzz</th>
-            <th scope="col" class="centerTableCol">Modify</th>
-            <th scope="col" class="centerTableCol">Delete</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!--{% for user in users %}-->
-            <!--<tr>-->
-                <!--<td class="centerTableCol"><a href="/show_person_details/{{ user.id }}">{{ user.username }}</a></td>-->
-                <!--<td class="centerTableCol">-->
-                    <!--{% if user.birthdate %}-->
-                        <!--{{ user.birthdate| date:"Y-m-d" }}</td>-->
-                    <!--{% else %}-->
-                        <!--n/a-->
-                    <!--{% endif %}-->
-
-                <!--<td class="centerTableCol">{{ user.age }}</td>-->
-                <!--<td class="centerTableCol">-->
-                    <!--{% if user.age > 13 %}-->
-                        <!--allowed-->
-                    <!--{% else %}-->
-                        <!--blocked-->
-                    <!--{% endif %}-->
-                <!--</td>-->
-
-
-                <!--<td class="centerTableCol">{{ user.random_number }}</td>-->
-                <!--<td class="centerTableCol">-->
-                    <!--{% if user.bizz == 3 %}-->
-                        <!--Bizz-->
-                    <!--{% elif user.bizz == 5 %}-->
-                        <!--Fuzz-->
-                    <!--{% elif user.bizz == 53 %}-->
-                        <!--BizzFuzz-->
-                    <!--{% else %}-->
-                        <!--{{ user.random_number }}-->
-                    <!--{% endif %}-->
-                <!--</td>-->
-                <!--<td class="centerTableCol">-->
-                    <!--<a href="/modify/{{ user.id }}">-->
-                        <!--<button class="btn btn-warning">Modify</button>-->
-                <!--</td>-->
-                <!--<td class="centerTableCol">-->
-                    <!--<a href="/delete_person/{{ user.id }}">-->
-                        <!--<button class="btn btn-danger">Delete!</button>-->
-                    <!--</a>-->
-                <!--</td>-->
-            <!--</tr>-->
-        <!--{% endfor %}-->
-        </tbody>
-    </table>
+<h3 class="h3 h3Colors">All Clients:</h3>
+<table class="table">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col" class="centerTableCol col5">ID</th>
+        <th scope="col" class="centerTableCol">Client Name</th>
+        <th scope="col" class="centerTableCol">Email</th>
+        <th scope="col" class="centerTableCol">Phone</th>
+        <th scope="col" class="centerTableCol">Suburb</th>
+        <th scope="col" class="centerTableCol">State</th>
+        <th scope="col" class="centerTableCol col10">(modify)</th>
+        <th scope="col" class="centerTableCol col10">(delete)</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for cl in all_clients %}
+    <tr>
+        <td class="centerTableCol">{{ cl.id}}</td>
+        <td class="centerTableCol"><a href="/details/{{ cl.id }}">{{ cl.client_name}}</a></td>
+        <td class="centerTableCol">{{ cl.email}}</td>
+        <td class="centerTableCol">{{ cl.phone}}</td>
+        <td class="centerTableCol">{{ cl.suburb}}</td>
+        <td class="centerTableCol">{{ cl.get_state_display}}</td>
+        <td class="centerTableCol">
+            <a href="/modify/{{ cl.id }}">
+                <button class="btn btn-warning">Modify</button>
+        </td>
+        <td class="centerTableCol">
+            <a href="/delete/{{ cl.id }}">
+                <button class="btn btn-danger">Delete!</button>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
 
 {% endif %}
 {% include "footer.html" %}
+

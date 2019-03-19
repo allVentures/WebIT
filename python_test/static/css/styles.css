@@ -83,16 +83,12 @@ table {
 }
 
 
-.col20 {
-    width: 20%;
+.col10 {
+    width: 10%;
 }
 
-.col60 {
-    width: 60%;
-}
-
-.col40 {
-    width: 40%;
+.col5 {
+    width: 5%;
 }
 
 .userDetailsDiv {

@@ -1,0 +1,50 @@
+{% include  "header.html" %}
+
+{% if msg %}
+    <div class="msgInfo">{{ msg }}</div>
+{% else %}
+    <h3 class="h3 h3Colors">Add New Client:</h3>
+    <div>
+        <form action="/add/" method="post" novalidate>
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.client_name.id_for_label }}">Client Name</label>
+                {{ form.client_name }}
+                {{ form.client_name.errors }}
+                {% if error %}
+                    <ul class="errorlist">
+                        <li>
+                            {{ error }} </li>
+                    </ul>
+                {% endif %}
+                <label for="{{ form.email.id_for_label }}">Client Email</label>
+                {{ form.email }}
+                {{ form.email.errors }}
+                <label for="{{ form.phone.id_for_label }}">Phone</label>
+                {{ form.phone }}
+                {{ form.phone.errors }}
+                <label for="{{ form.contact_name.id_for_label }}">Contact Name</label>
+                {{ form.contact_name }}
+                {{ form.contact_name.errors }}
+                <label for="{{ form.street.id_for_label }}">Street</label>
+                {{ form.street }}
+                {{ form.street.errors }}
+                <label for="{{ form.house_number.id_for_label }}">House Number</label>
+                {{ form.house_number }}
+                {{ form.house_number.errors }}
+                <label for="{{ form.suburb.id_for_label }}">Suburb</label>
+                {{ form.suburb }}
+                {{ form.suburb.errors }}
+                <label for="{{ form.post_code.id_for_label }}">Post Code</label>
+                {{ form.post_code }}
+                {{ form.post_code.errors }}
+                <label for="{{ form.state.id_for_label }}">State</label>
+                {{ form.state }}
+                {{ form.state.errors }}
+                <br><br>
+                <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+
+{% endif %}
+{% include "footer.html" %}
